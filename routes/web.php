@@ -114,6 +114,11 @@ Route::middleware(['auth'])->group(function () {
         ->name('peminjaman.show');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/riwayat-peminjaman/{id}', [PeminjamanController::class, 'show'])
+        ->name('peminjaman.show');
+});
+
 Route::middleware(['auth', 'permission:lihat laporan perpustakaan'])->group(function () {
     Route::get('/laporan', [ReportController::class, 'index'])
         ->name('laporan.index');
