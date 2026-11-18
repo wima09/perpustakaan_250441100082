@@ -98,13 +98,13 @@ Route::middleware(['auth', 'permission:kelola peminjaman'])->group(function () {
 });
 
 // Menyetujui pengajuan peminjaman
-Route::middleware(['auth', 'permission:memproses persetujuan peminjaman'])->group(function () {
+Route::middleware(['auth', 'permission:kelola peminjaman'])->group(function () {
     Route::post('/peminjaman/{id}/setujui', [PeminjamanController::class, 'setujui'])
         ->name('peminjaman.setujui');
 });
 
 // Mencatat pengembalian buku
-Route::middleware(['auth', 'permission:mencatat pengembalian buku'])->group(function () {
+Route::middleware(['auth', 'permission:kelola pengembalian'])->group(function () {
     Route::post('/peminjaman/{id}/kembalikan', [PeminjamanController::class, 'kembalikan'])
         ->name('peminjaman.kembalikan');
 });
