@@ -86,7 +86,7 @@ Route::middleware(['auth', 'role:Siswa'])->group(function () {
         ->name('peminjaman.ajukan');
 });
 
-Route::middleware(['auth', 'permission:melihat status peminjaman sendiri'])->group(function () {
+Route::middleware(['auth', 'permission:lihat riwayat peminjaman sendiri'])->group(function () {
     Route::get('/riwayat-peminjaman', [PeminjamanController::class, 'riwayat'])
         ->name('peminjaman.riwayat');
 });
