@@ -7,6 +7,7 @@ use App\Models\Buku;
 use App\Models\Anggota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class PeminjamanController extends Controller
 {
@@ -58,6 +59,20 @@ class PeminjamanController extends Controller
         }
 
         return view('peminjaman.riwayat', compact('peminjamans'));
+    }
+
+    public function show($id)
+    {
+        $peminjaman = Peminjaman::with('buku')->findOrFail($id);
+        $user = Auth::user();
+
+        // Admin/petugas boleh melihat semua; siswa hanya miliknya sendiri
+        if (!Gate::forUser($user)->allows('kelola peminjaman')) {
+            $anggota = $user->anggota;
+            abort_unless($anggota && $peminjaman->anggota_id === $anggota->id, 403);
+        }
+
+        return view('peminjaman.show', compact('peminjaman'));
     }
 
     public function ajukan(Request $request)

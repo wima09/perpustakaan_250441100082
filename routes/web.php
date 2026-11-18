@@ -109,6 +109,11 @@ Route::middleware(['auth', 'permission:kelola pengembalian'])->group(function ()
         ->name('peminjaman.kembalikan');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/peminjaman/{id}', [PeminjamanController::class, 'show'])
+        ->name('peminjaman.show');
+});
+
 Route::middleware(['auth', 'permission:lihat laporan perpustakaan'])->group(function () {
     Route::get('/laporan', [ReportController::class, 'index'])
         ->name('laporan.index');
